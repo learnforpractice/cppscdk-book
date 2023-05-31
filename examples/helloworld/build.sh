@@ -1,1 +1,1 @@
-rust-contract build
+cdt-cpp hello.cpp

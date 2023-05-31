@@ -60,22 +60,22 @@ class NewChainTester():
 
 test_dir = os.path.dirname(__file__)
 def deploy_contracts(tester):
-    with open(f'{test_dir}/sender/target/sender.wasm', 'rb') as f:
+    with open(f'{test_dir}/sender.wasm', 'rb') as f:
         code = f.read()
-    with open(f'{test_dir}/sender/target/sender.abi', 'rb') as f:
+    with open(f'{test_dir}/sender.abi', 'rb') as f:
         abi = f.read()
     tester.deploy_contract('alice', code, abi)
 
-    with open(f'{test_dir}/receiver/target/receiver.wasm', 'rb') as f:
+    with open(f'{test_dir}/receiver.wasm', 'rb') as f:
         code = f.read()
-    with open(f'{test_dir}/receiver/target/receiver.abi', 'rb') as f:
+    with open(f'{test_dir}/receiver.abi', 'rb') as f:
         abi = f.read()
     tester.deploy_contract('hello', code, abi)
 
 @chain_test
-def test_notify(tester):
+def test_hello(tester):
     deploy_contracts(tester)
-    args = {'name': 'alice'}
-    r = tester.push_action('alice', 'test', args, {'hello': 'active'})
+    args = {'n': 'alice'}
+    r = tester.push_action('alice', 'sayhello', args, {'alice': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()

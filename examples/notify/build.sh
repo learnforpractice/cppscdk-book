@@ -1,7 +1,2 @@
-pushd sender
-rust-contract build
-popd
-
-pushd receiver
-rust-contract build
-popd
+cdt-cpp sender.cpp
+cdt-cpp receiver.cpp
