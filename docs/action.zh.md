@@ -8,83 +8,91 @@ comments: true
 
 下面通过利用inline action来进行EOS转账的列子来说明inline action的用法。
 
-```rust
-#![cfg_attr(not(feature = "std"), no_std)]
+[完整示例](https://github.com/learnforpractice/cppscdk-book/tree/master/examples/inlineaction)
 
-#[rust_chain::contract]
-mod inlineaction {
-    use rust_chain::{
-        Name,
-        Action,
-        PermissionLevel,    
-        name,
-        ACTIVE,
-        chain_println,
-        serializer::Packer,
-        Asset,
-        Symbol,
+```cpp
+struct transfer {
+    name from;
+    name to;
+    asset quantity;
+    string memo;
+};
+
+[[eosio::action("test")]]
+void test_contract::test() {
+    action(
+        {"hello"_n, "active"_n},
+        "eosio.token"_n,
+        "transfer"_n,
+        std::make_tuple(
+            "hello"_n,
+            "alice"_n,
+            asset(5000, symbol("EOS", 4)),
+            string("hello, world")
+        )
+    ).send();
+
+    transfer t = transfer {
+        "hello"_n,
+        "alice"_n,
+        asset(5000, symbol("EOS", 4)),
+        string("hello, world")
     };
 
-    #[chain(packer)]
-    struct Transfer {
-        from: Name,
-        to: Name,
-        quantity: Asset,
-        memo: String
-    }
-
-    #[chain(main)]
-    pub struct Contract {
-        receiver: Name,
-        first_receiver: Name,
-        action: Name,
-    }
-
-    impl Contract {
-        pub fn new(receiver: Name, first_receiver: Name, action: Name) -> Self {
-            Self {
-                receiver: receiver,
-                first_receiver: first_receiver,
-                action: action,
-            }
-        }
-
-        #[chain(action = "testaction")]
-        pub fn test_action(&self) {
-            let transfer = Transfer{
-                from: name!("hello"),
-                to: name!("alice"),
-                quantity: Asset::new(10000, Symbol::new("EOS", 4)),
-                memo: String::from("hello, world")
-            };
-            let perm = PermissionLevel::new(name!("hello"), name!("active"));
-            let action = Action::new(name!("eosio.token"), name!("transfer"), perm, &transfer);
-            action.send();
-        }
-    }
+    action(
+        {"hello"_n, "active"_n},
+        "eosio.token"_n,
+        "transfer"_n,
+        t
+    ).send();
 }
 ```
 
-在上面的代码中，实现了从`hello`这个账号转账`1.0000 EOS`到`alice`这个账号的功能。`hello`和`alice`这两个账号都是在启动测试的时候创建好的，可以直接使用。
+解释下上面的代码：
+
+- 上面的代码发起了两个inline action，演示了action的两种常见的用法
+- 第一种方法是通过`make_tuple`来构造action的数据，但是在使用的时候对于类型必须特别留意，如transfer的`memo`的类型是string, 不能直接转入参数"hello, world"这个字符串指针类型，否则在序列化的时候不是想要的结果。
+- 第二种方法是通过传结构体的方法，编译器会自动为结构体自成序列化和返序列化的代码，老的代码中必须定义一个序列化和反序列化的宏，如下所示，新的代码中已经不需要再这样做：
+```cpp
+struct transfer {
+    name from;
+    name to;
+    asset quantity;
+    string memo;
+    EOSLIB_SERIALIZE(transfer, (from)(to)(quantity)(memo))
+};
+```
+
+宏的代码点链接查找：[EOSLIB_SERIALIZE](https://github.com/AntelopeIO/cdt/blob/6f9531319ded3633d47676f4d1ab57b9001ff985/libraries/eosiolib/core/eosio/serialize.hpp#L23)
+
+- 每个action实现了从`hello`这个账号转账`0.5000 EOS`到`alice`这个账号的功能。
+
+`hello`和`alice`这两个账号都是在启动测试的时候创建好的，可以直接使用。
 
 测试代码：
 
 ```python
 @chain_test
 def test_inline_action(tester: ChainTester):
-    deploy_contract(tester, 'inlineaction')
+    deploy_contract(tester, 'test')
     args = {}
-    r = tester.push_action('hello', 'testaction', args, {'hello': 'active'})
+    
+    logger.info("balance of hello before transfer: %s",  tester.get_balance('hello'))
+    logger.info("balance of alice before transfer: %s",  tester.get_balance('alice'))
+
+    r = tester.push_action('hello', 'test', args, {'hello': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()
-    logger.info("+++++++%s", tester.get_balance('hello'))
+
+    logger.info("balance of hello after transfer: %s",  tester.get_balance('hello'))
+    logger.info("balance of alice after transfer: %s",  tester.get_balance('alice'))
 ```
 
 编译：
 
 ```bash
 cd examples/inlineaction
-rust-contract build
+cdt-cpp test.cpp
 ```
 
 运行测试：
@@ -128,5 +136,3 @@ def update_auth(chain, account):
 总结：
 
 在EOS中，除了可以通过在Transaction里包含action来调用合约的代码之外，在合约的代码里，也可以发起一个Action来调用合约的代码，这样的Action称之为Inline Action. 要允许合约代码使用Inline Action，还必须在合约账号的`active`权限中添加`eosio.code`这个虚拟权限。
-
-[完整示例](https://github.com/learnforpractice/rscdk-book/tree/master/examples/inlineaction)
