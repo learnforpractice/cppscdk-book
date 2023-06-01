@@ -1,124 +1,52 @@
+---
+comments: true
+---
+
 # require_recipient Function
 
-The `require_recipient` function is declared in `vmapi/on_chain/eosio.rs` in the `rust-chain` package as follows:
+Declaration is as follows:
 
 ```rust
-pub fn require_recipient(name: Name)
+void require_recipient(name n)
 ```
 
-The `require_recipient` function is used to notify other contracts that the current contract has called a specific action. If the notified contract has the same action, that action will be executed.
+The `require_recipient` function is used to notify other contracts that this contract has called a certain action, which is the action in which `require_recipient` is called. If the notified contract has the same action, then this action will be called.
 
-The following code snippets demonstrate how to send a notification from one contract to another:
+The following `sender`, `receiver` code demonstrates how to send a notification from one contract to another.
 
-```rust
+[Complete Code](https://github.com/learnforpractice/cppscdk-book/tree/master/examples/notify)
+
+```cpp
 // sender
-#![cfg_attr(not(feature = "std"), no_std)]
-#![cfg_attr(feature = "std", allow(warnings))]
-
-use rust_chain as chain;
-
-#[chain::contract]
-mod hello {
-    use ::rust_chain::{
-        Name,
-        chain_println,
-        require_recipient,
-    };
-
-    #[chain(packer)]
-    pub struct SayHello {
-        pub name: String
-    }
-
-    #[chain(main)]
-    pub struct Hello {
-        receiver: Name,
-        first_receiver: Name,
-        action: Name,
-    }
-
-    impl Hello {
-        pub fn new(receiver: Name, first_receiver: Name, action: Name) -> Self {
-            Self {
-                receiver: receiver,
-                first_receiver: first_receiver,
-                action: action,
-            }
-        }
-
-        #[chain(action="test")]
-        pub fn test(&self, name: String) {
-            require_recipient(Name::new("hello"));
-            chain_println!(self.receiver, self.first_receiver);
-            chain_println!("++++++++in sender, name is:", name);
-        }
-    }
+[[eosio::action("sayhello")]]
+void test_contract::say_hello(name n) {
+    print_f("++++in sender %: %", get_self(), n);
+    require_recipient("hello"_n);
 }
 ```
 
-```rust
-#![cfg_attr(not(feature = "std"), no_std)]
-#![cfg_attr(feature = "std", allow(warnings))]
-
-use rust_chain as chain;
-
-#[chain::contract]
-mod hello {
-    use ::rust_chain::{
-        Name,
-        require_recipient,
-        chain_println,
-    };
-
-    #[chain(packer)]
-    pub struct SayHello {
-        pub name: String
-    }
-
-    #[chain(main)]
-    pub struct Hello {
-        receiver: Name,
-        first_receiver: Name,
-        action: Name,
-    }
-
-    impl Hello {
-
-        pub fn new(receiver: Name, first_receiver: Name, action: Name) -> Self {
-            Self {
-                receiver: receiver,
-                first_receiver: first_receiver,
-                action: action,
-            }
-        }
-
-        #[chain(action="test", notify)]
-        pub fn test(&self, name: String) {
-            chain_println!(self.receiver, self.first_receiver);
-            chain_println!("++++++++in receiver, name:", name);
-        }
-    }
+```cpp
+// receiver
+[[eosio::on_notify("*::sayhello")]]
+void test_contract::say_hello(name n) {
+    print_f("++++in receiver get_self(): %, get_first_receiver(): %, n: %", get_self(), get_first_receiver(), n);
 }
 ```
 
-The receiver contract is deployed in the `hello` account. In the code snippet below, the `#[chain(action="test", notify)]` line differs from a normal action code. The `notify` parameter indicates that this action is intended to receive notifications from other contracts. The `self.receiver` and `self.first_receiver` values are different for the action that receives notifications. In this example, `self.first_receiver` corresponds to the `alice` account, and `self.receiver` corresponds to `hello`. You can check the output of `chain_println!(self.receiver, self.first_receiver);` during the test execution to verify this.
+Explanation of the code:
 
-```rust
-#[chain(action="test", notify)]
-pub fn test(&self, name: String) {
-    chain_println!(self.receiver, self.first_receiver);
-    chain_println!("++++++++in receiver, name:", name);
-}
-```
+- The `sender` contract code is deployed in the `alice` contract account. The `test` action within it calls the `require_recipient` function to notify the `hello` account that it has called the `test` action.
+- The `receiver` contract code is deployed in the `hello` account. As shown in the code below, the line of code `[[eosio::on_notify("*::sayhello")]]` is different from the normal action code. The `on_notify` parameter indicates that this action is used to receive the `sayhello` action notification from other contracts. Its `get_self()` and `get_first_receiver()` are not the same. In this example, `get_first_receiver()` is the `alice` account and `get_self()` is `hello`. You can run the test to know from the output.
 
-The test code is as follows:
+
+Here is the test code:
 
 ```python
 @chain_test
-def test_notify(tester):
+def test_hello(tester):
     deploy_contracts(tester)
-    args = {'name': 'alice'}
-    r = tester.push_action('alice', 'test', args, {'hello': 'active'})
+    args = {'n': 'alice'}
+    r = tester.push_action('alice', 'sayhello', args, {'alice': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()
 ```
@@ -127,38 +55,26 @@ Compilation:
 
 ```bash
 cd examples/notify
-
-pushd sender
-rust-contract build
-popd
-
-pushd receiver
-rust-contract build
-popd
+cdt-cpp sender.cpp
+cdt-cpp receiver.cpp
 ```
 
 Testing:
 
 ```bash
-ipyeos -m pytest -s -x test.py -k test_notify
+ipyeos -m pytest -s -x test.py -k test_hello
 ```
 
 Output:
 
 ```
-[(alice,test)->alice]: CONSOLE OUTPUT BEGIN =====================
-alice alice
-++++++++in sender, name is: alice
+[(alice,sayhello)->alice]: CONSOLE OUTPUT BEGIN =====================
+++++in sender alice: alice
+[(alice,sayhello)->alice]: CONSOLE OUTPUT END   =====================
 
-[(alice,test)->alice]: CONSOLE OUTPUT END   =====================
-debug 2023-05-26T02:42:02.693 thread-0  apply_context.cpp:40          print_debug          ] 
-[(alice,test)->hello]: CONSOLE OUTPUT BEGIN =====================
-hello alice
-++++++++in receiver, name: alice
-
-[(alice,test)->hello]: CONSOLE OUTPUT END   =====================
+[(alice,sayhello)->hello]: CONSOLE OUTPUT BEGIN =====================
+++++in receiver get_self(): hello, get_first_receiver(): alice, n: alice
+[(alice,sayhello)->hello]: CONSOLE OUTPUT END   =====================
 ```
 
-In the output, you can see that the `test` action is called in the `alice` contract. The `require_recipient` function notifies the `hello` contract, and the `test` action in the `hello` contract is executed. The console output shows the values of `self.receiver` and `self.first_receiver`, as well as the name received as a parameter.
-
-[Example Code](https://github.com/learnforpractice/rscdk-book/tree/master/examples/notify)
+[Sample Code](https://github.com/learnforpractice/cppscdk-book/tree/master/examples/notify)
