@@ -10,19 +10,19 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
-        <title>C++ Smart Contracts Development Cook Book</title>
+        <title>Compiling Code with CMake - C++ Smart Contracts Development Cook Book</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.240905d7.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.240905d7.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -38,7 +38,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -62,6 +62,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#compiling-code-with-cmake" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -74,7 +79,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="C++ Smart Contracts Development Cook Book" class="md-header__button md-logo" aria-label="C++ Smart Contracts Development Cook Book" data-md-component="logo">
+    <a href="../" title="C++ Smart Contracts Development Cook Book" class="md-header__button md-logo" aria-label="C++ Smart Contracts Development Cook Book" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -93,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Compiling Code with CMake
             
           </span>
         </div>
@@ -111,13 +116,13 @@
             <ul class="md-select__list">
               
                 <li class="md-select__item">
-                  <a href="/./" hreflang="en" class="md-select__link">
+                  <a href="../../hello-cmake/" hreflang="en" class="md-select__link">
                     English
                   </a>
                 </li>
               
                 <li class="md-select__item">
-                  <a href="/./zh/" hreflang="zh" class="md-select__link">
+                  <a href="../../zh/hello-cmake/" hreflang="zh" class="md-select__link">
                     中文
                   </a>
                 </li>
@@ -165,7 +170,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="C++ Smart Contracts Development Cook Book" class="md-nav__button md-logo" aria-label="C++ Smart Contracts Development Cook Book" data-md-component="logo">
+    <a href="../" title="C++ Smart Contracts Development Cook Book" class="md-nav__button md-logo" aria-label="C++ Smart Contracts Development Cook Book" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -196,7 +201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/prelude/" class="md-nav__link">
+      <a href="../prelude/" class="md-nav__link">
         Prerequisite Knowledge
       </a>
     </li>
@@ -211,7 +216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/env/" class="md-nav__link">
+      <a href="../env/" class="md-nav__link">
         Setting Up the Development Environment
       </a>
     </li>
@@ -226,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/helloworld.md" class="md-nav__link">
+      <a href="../../helloworld.md" class="md-nav__link">
         None
       </a>
     </li>
@@ -241,7 +246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/deploy/" class="md-nav__link">
+      <a href="../deploy/" class="md-nav__link">
         Deploying a Smart Contract
       </a>
     </li>
@@ -256,7 +261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ui/" class="md-nav__link">
+      <a href="../ui/" class="md-nav__link">
         Interact with Digital Wallets
       </a>
     </li>
@@ -271,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/action/" class="md-nav__link">
+      <a href="../action/" class="md-nav__link">
         Action
       </a>
     </li>
@@ -286,7 +291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notify/" class="md-nav__link">
+      <a href="../notify/" class="md-nav__link">
         require_recipient Function
       </a>
     </li>
@@ -301,7 +306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/database/" class="md-nav__link">
+      <a href="../database/" class="md-nav__link">
         Database Operations
       </a>
     </li>
@@ -316,7 +321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/crypto/" class="md-nav__link">
+      <a href="../crypto/" class="md-nav__link">
         Cryptography-related Functions
       </a>
     </li>
@@ -331,7 +336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/common/" class="md-nav__link">
+      <a href="../common/" class="md-nav__link">
         Common Smart Contract Functions
       </a>
     </li>
@@ -346,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/abi/" class="md-nav__link">
+      <a href="../abi/" class="md-nav__link">
         Detailed Explanation of ABI Types
       </a>
     </li>
@@ -370,6 +375,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -381,8 +388,73 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+  
+
+
+<h1 id="compiling-code-with-cmake">Compiling Code with CMake</h1>
+<p>Previous examples were compiled directly with <code>cdt-cpp</code> for C++ code. In actual projects, in order to better manage the code, especially C++ code, the <code>cmake</code> tool is often used for compilation.</p>
+<p>The following demonstrates how to generate wasm files and library files with cmake.</p>
+<p><a href="https://github.com/learnforpractice/cppscdk-book/tree/master/examples/hello-cmake">Complete Example</a></p>
+<p>First, let's take a look at the code in <code>test.cpp</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;test.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utils.hpp&quot;</span>
+
+<span class="p">[[</span><span class="n">eosio</span><span class="o">::</span><span class="n">action</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)]]</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">test_contract</span><span class="o">::</span><span class="n">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">::</span><span class="n">say_hello</span><span class="p">(</span><span class="s">&quot;alice&quot;</span><span class="n">_n</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Here, the function <code>say_hello</code> from the <code>utils</code> library is called.</p>
+<p>Next, let's see what's in <code>CMakeLists.txt</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_library</span><span class="p">(</span><span class="s">utils</span>
+<span class="w">    </span><span class="s">utils.cpp</span>
+<span class="p">)</span>
+
+<span class="nb">add_contract</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">test</span>
+<span class="w">    </span><span class="s">test.cpp</span>
+<span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">utils</span><span class="p">)</span>
+
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Here, <code>utils.cpp</code> is first compiled into the library file <code>libutils.a</code>, then the <code>add_contract</code> macro in cmake is used to compile the contract. <code>target_link_libraries</code> links the <code>utils</code> library.</p>
+<p>To compile:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="sb">`</span>cdt-get-dir<span class="sb">`</span>/CDTWasmToolchain.cmake<span class="w"> </span>..
+make
+<span class="nb">cd</span><span class="w"> </span>..
+</code></pre></div>
+<p>During compilation, the toolchain must be specified as <code>CDTWasmToolchain.cmake</code>.</p>
+<p>Testing the code:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@chain_test</span>
+<span class="k">def</span> <span class="nf">test_hello</span><span class="p">(</span><span class="n">tester</span><span class="p">:</span> <span class="n">ChainTester</span><span class="p">):</span>
+    <span class="n">deploy_contract</span><span class="p">(</span><span class="n">tester</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">push_action</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;hello&#39;</span><span class="p">:</span> <span class="s1">&#39;active&#39;</span><span class="p">})</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;++++++elapsed: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;elapsed&#39;</span><span class="p">])</span>
+    <span class="n">tester</span><span class="o">.</span><span class="n">produce_block</span><span class="p">()</span>
+</code></pre></div>
+<p>To run the test code:</p>
+<div class="highlight"><pre><span></span><code>ipyeos -m pytest -s -x test.py -k test_hello
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT BEGIN =====================
+hello alice
+[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT END   =====================
+</code></pre></div>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -414,10 +486,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "/", "features": [], "search": "/assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.19047be9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.19047be9.min.js"></script>
       
     
   </body>

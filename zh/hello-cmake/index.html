@@ -9,17 +9,13 @@
       
       
       
-        <link rel="prev" href="../action/">
-      
-      
-        <link rel="next" href="../database/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
-        <title>require_recipient函数 - C++ Smart Contracts Development Cook Book</title>
+        <title>用CMake编译代码 - C++ Smart Contracts Development Cook Book</title>
       
     
     
@@ -67,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#require_recipient" class="md-skip">
+        <a href="#cmake" class="md-skip">
           跳转至
         </a>
       
@@ -102,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              require_recipient函数
+              用CMake编译代码
             
           </span>
         </div>
@@ -120,7 +116,7 @@
             <ul class="md-select__list">
               
                 <li class="md-select__item">
-                  <a href="../../notify/" hreflang="en" class="md-select__link">
+                  <a href="../../hello-cmake/" hreflang="en" class="md-select__link">
                     English
                   </a>
                 </li>
@@ -293,21 +289,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../notify/" class="md-nav__link">
         require_recipient函数
       </a>
-      
     </li>
   
 
@@ -408,58 +394,61 @@
   
 
 
-<h1 id="require_recipient">require_recipient函数</h1>
-<p>声明如下：</p>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">require_recipient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
-</code></pre></div>
-<p><code>require_recipient</code>函数用来通知其它合约本合约调用了某个action，这个action即是调用<code>require_recipient</code>所在的action. 如果被通知的合约有相同的action，那么这个action将被调用。</p>
-<p>以下的<code>sender</code>, <code>receiver</code>的代码演示了如何从一个合约发送通知到另一个合约。</p>
-<p><a href="https://github.com/learnforpractice/cppscdk-book/tree/master/examples/notify">完整代码</a></p>
-<div class="highlight"><pre><span></span><code><span class="c1">// sender</span>
-<span class="p">[[</span><span class="n">eosio</span><span class="o">::</span><span class="n">action</span><span class="p">(</span><span class="s">&quot;sayhello&quot;</span><span class="p">)]]</span>
-<span class="kt">void</span><span class="w"> </span><span class="n">test_contract</span><span class="o">::</span><span class="n">say_hello</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">print_f</span><span class="p">(</span><span class="s">&quot;++++in sender %: %&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">get_self</span><span class="p">(),</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
-<span class="w">    </span><span class="n">require_recipient</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="n">_n</span><span class="p">);</span>
+<h1 id="cmake">用CMake编译代码</h1>
+<p>前面的例子都是用cdt-cpp直接编译C++代码。在实际的项目中，为了更好的管理代码，特别是C++代码，经常要用到cmake工具进行编译。</p>
+<p>以下展示如何用cmake生成wasm文件和库文件</p>
+<p><a href="https://github.com/learnforpractice/cppscdk-book/tree/master/examples/hello-cmake">完整示例</a></p>
+<p>先看下test.cpp中的代码：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;test.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utils.hpp&quot;</span>
+
+<span class="p">[[</span><span class="n">eosio</span><span class="o">::</span><span class="n">action</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)]]</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">test_contract</span><span class="o">::</span><span class="n">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">::</span><span class="n">say_hello</span><span class="p">(</span><span class="s">&quot;alice&quot;</span><span class="n">_n</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1">// receiver</span>
-<span class="p">[[</span><span class="n">eosio</span><span class="o">::</span><span class="n">on_notify</span><span class="p">(</span><span class="s">&quot;*::sayhello&quot;</span><span class="p">)]]</span>
-<span class="kt">void</span><span class="w"> </span><span class="n">test_contract</span><span class="o">::</span><span class="n">say_hello</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">print_f</span><span class="p">(</span><span class="s">&quot;++++in receiver get_self(): %, get_first_receiver(): %, n: %&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">get_self</span><span class="p">(),</span><span class="w"> </span><span class="n">get_first_receiver</span><span class="p">(),</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
-<span class="p">}</span>
+<p>这里调用了<code>say_hello</code>这个在<code>utils</code>库中的函数。</p>
+<p>下面看下CMakeLists.txt中的内容：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_library</span><span class="p">(</span><span class="s">utils</span>
+<span class="w">    </span><span class="s">utils.cpp</span>
+<span class="p">)</span>
+
+<span class="nb">add_contract</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">test</span>
+<span class="w">    </span><span class="s">test.cpp</span>
+<span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">utils</span><span class="p">)</span>
+
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">test</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span>
+<span class="p">)</span>
 </code></pre></div>
-<p>解释下代码：</p>
-<ul>
-<li><code>sender</code>合约代码部署在<code>alice</code>这个合约账号中，其中的<code>test</code>action调用了<code>require_recipient</code>这个函数来通知<code>hello</code>这个账号自己调用了<code>test</code>这个action</li>
-<li><code>receiver</code>合约代码部署在<code>hello</code>这个账号中，从其中如下所示的代码，<code>[[eosio::on_notify("*::sayhello")]]</code>这行代码与正常的action代码不同，其中的<code>on_notify</code>参数表示这个action是用来接收其它合约的<code>sayhello</code> action 通知的，其<code>get_self()</code>和<code>get_first_receiver()</code>是不相同的，在本例中,<code>get_first_receiver()</code>为账号<code>alice</code>，<code>get_self()</code>为<code>hello</code>，可以运行测试从输出中即可知道。</li>
-</ul>
-<p>以下是测试代码：</p>
+<p>这里先将<code>utils.cpp</code>编译成库文件<code>libutils.a</code>，再用<code>add_contract</code>这个cmake中的宏编译合约。<code>target_link_libraries</code>会链接<code>utils</code>这个库。</p>
+<p>编译：</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="sb">`</span>cdt-get-dir<span class="sb">`</span>/CDTWasmToolchain.cmake<span class="w"> </span>..
+make
+<span class="nb">cd</span><span class="w"> </span>..
+</code></pre></div>
+<p>编译的时候必须指定工具链为<code>CDTWasmToolchain.cmake</code>。</p>
+<p>测试代码：</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@chain_test</span>
-<span class="k">def</span> <span class="nf">test_hello</span><span class="p">(</span><span class="n">tester</span><span class="p">):</span>
-    <span class="n">deploy_contracts</span><span class="p">(</span><span class="n">tester</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="s1">&#39;alice&#39;</span><span class="p">}</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">push_action</span><span class="p">(</span><span class="s1">&#39;alice&#39;</span><span class="p">,</span> <span class="s1">&#39;sayhello&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="s1">&#39;active&#39;</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">test_hello</span><span class="p">(</span><span class="n">tester</span><span class="p">:</span> <span class="n">ChainTester</span><span class="p">):</span>
+    <span class="n">deploy_contract</span><span class="p">(</span><span class="n">tester</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">push_action</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;hello&#39;</span><span class="p">:</span> <span class="s1">&#39;active&#39;</span><span class="p">})</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;++++++elapsed: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;elapsed&#39;</span><span class="p">])</span>
     <span class="n">tester</span><span class="o">.</span><span class="n">produce_block</span><span class="p">()</span>
 </code></pre></div>
-<p>编译：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>examples/notify
-cdt-cpp<span class="w"> </span>sender.cpp
-cdt-cpp<span class="w"> </span>receiver.cpp
-</code></pre></div>
-<p>测试：</p>
-<div class="highlight"><pre><span></span><code>ipyeos<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>-x<span class="w"> </span>test.py<span class="w"> </span>-k<span class="w"> </span>test_hello
+<p>运行测试代码：</p>
+<div class="highlight"><pre><span></span><code>ipyeos -m pytest -s -x test.py -k test_hello
 </code></pre></div>
 <p>输出：</p>
-<div class="highlight"><pre><span></span><code>[(alice,sayhello)-&gt;alice]: CONSOLE OUTPUT BEGIN =====================
-++++in sender alice: alice
-[(alice,sayhello)-&gt;alice]: CONSOLE OUTPUT END   =====================
-
-[(alice,sayhello)-&gt;hello]: CONSOLE OUTPUT BEGIN =====================
-++++in receiver get_self(): hello, get_first_receiver(): alice, n: alice
-[(alice,sayhello)-&gt;hello]: CONSOLE OUTPUT END   =====================
+<div class="highlight"><pre><span></span><code>[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT BEGIN =====================
+hello alice
+[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT END   =====================
 </code></pre></div>
-<p><a href="https://github.com/learnforpractice/cppscdk-book/tree/master/examples/notify">示例代码</a></p>
 
 
 
