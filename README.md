@@ -20,7 +20,6 @@
 
 * [预备知识](docs/prelude.zh.md)
 * [开发环境搭建](docs/env.zh.md)
-* [HelloWorld](docs/helloworld.zh.md)
 * [内联Action在智能合约的使用](docs/action.zh.md)
 * [require_recipient函数](docs/notify.zh.md)
 * [数据库的操作](docs/database.zh.md)
