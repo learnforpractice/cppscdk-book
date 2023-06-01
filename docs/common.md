@@ -8,150 +8,113 @@ comments: true
 
 Declaration:
 
-```rust
-pub fn is_account(name: Name) -> bool
+```cpp
+inline bool is_account( name n );
 ```
 
 Description:
 
-Used to determine whether an account exists.
+Used to determine whether an account exists
 
 ## has_auth
 
 Declaration:
 
-```rust
-pub fn has_auth(name: Name) -> bool
+```cpp
+inline bool has_auth( name n )
 ```
 
 Description:
 
-Used to determine whether it has the `active` authority of the specified account, that is, whether the Transaction has been signed with the private key corresponding to the `active` authority of the specified account. The private key used for signing may be at least one or more.
+Used to determine whether there is `active` permission for the specified account, that is, whether the Transaction is signed with the private key corresponding to the `active` permission of the specified account. The private key used for signing is at least one, and may be more than two.
 
-## require_auth/require_auth2
+## require_auth
 
 Declaration:
 
-```rust
-pub fn require_auth(name: Name)
-pub fn require_auth2(account: Name, permission: Name)
+```cpp
+inline void require_auth( name n )
+inline void require_auth( const permission_level& level );
 ```
 
 Description:
 
-These two functions will throw an exception when the account does not exist or the authority of the specified account is not detected. The difference is that `require_auth` checks for the existence of `active` authority, while `require_auth2` can check for specified authority.
+These two functions will throw an exception when the account does not exist or the specified account's authority is not detected. The difference is that `require_auth( name n )` checks for the existence of `active` permission, while `require_auth( const permission_level& level )` can check the specified authority.
 
 ## current_time
 
 Declaration:
 
-```rust
-pub fn current_time() -> TimePoint
+```cpp
+uint64_t  current_time( void );
 ```
 
 Description:
 
-Used to get the time of the block where the Transaction is located.
+Used to get the time of the block where the Transaction is located
 
 ## check
 
 Declaration:
 
-```rust
-pub fn check(test: bool, msg: &str)
+```cpp
+inline void check(bool pred, const std::string& msg);
 ```
 
 Description:
 
-If test is false, it will throw an exception, all actions executed in the Transaction and the operations on the database that have been executed in this action will be rolled back, and the Transaction will not be on the chain. This is quite different from the `revert` mechanism in Ethereum. The result is that the EOS network is relatively fragile because the Transaction that throws an exception is rolled back and does not consume resources, that is, it does not cause costs, making the network easier to attack. However, in normal contracts, this function is also frequently used in smart contracts. For reference, see the related code in [token](https://github.com/uuosio/rscdk/blob/main/examples/token/lib.rs).
+If test is false, an exception will be thrown, all actions executed in the Transaction and operations on the database already executed by this action will be rolled back, and the Transaction will not be chained. This is quite different from the `revert` mechanism in Ethereum. The result is that the EOS network is relatively fragile, because the rolled back Transaction does not consume resources, which means it does not cause costs, making the network more susceptible to attack. However, in normal contracts, this function is also frequently used in smart contracts, you can refer to the related code in [eosio.token](https://github.com/AntelopeIO/reference-contracts/tree/main/contracts/eosio.token)
 
-## Sample Code:
 
-```rust
-#![cfg_attr(not(feature = "std"), no_std)]
-#![cfg_attr(feature = "std", allow(warnings))]
+## Sample code:
 
-#[rust_chain::contract]
-#[allow(dead_code)]
-mod commonfunctions {
-    use rust_chain::{
-        Name,
-        has_auth,
-        require_auth,
-        require_auth2,
-        is_account,
+```cpp
+[[eosio::action("test")]]
+void test_contract::test() {
+    print_f("% %\n", is_account(get_self()), is_account("noexists"_n));
 
-        name,
-        chain_println,
-    };
+    print_f("% %\n", has_auth(get_self()), has_auth("alice"_n));
 
-    #[chain(main)]
-    pub struct Contract {
-        receiver: Name,
-        first_receiver: Name,
-        action: Name,
-    }
-
-    impl Contract {
-        pub fn new(receiver: Name, first_receiver: Name, action: Name) -> Self {
-            Self {
-                receiver: receiver,
-                first_receiver: first_receiver,
-                action: action,
-            }
-        }
-
-        #[chain(action = "test")]
-        pub fn test(&self) {
-            has_auth(name!("hello"));
-
-            require_auth(name!("hello"));
-            require_auth2(name!("hello"), name!("active"));
-    
-            chain_println!(is_account(name!("hello")));
-            chain_println!(is_account(name!("noexists")));
-        }
-    }
+    require_auth(get_self());
+    require_auth(permission_level{"hello"_n, "active"_n});
 }
+
 ```
 
-Compile:
+Compilation:
 
 ```bash
 cd examples/commonfunctions
-rust-contract build
+cdt-cpp test.cpp
 ```
 
-Test Code:
+Test code:
 
 ```python
 @chain_test
-def test_commonfunctions(tester):
-    deploy_contract(tester, 'commonfunctions')
+def test_hello(tester: ChainTester):
+    deploy_contract(tester, 'test')
     args = {}
+    
     r = tester.push_action('hello', 'test', args, {'hello': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()
 ```
 
-Test:
+Testing:
 
 ```
-ipyeos -m pytest -s -x test.py -k test_commonfunctions
+ipyeos -m pytest -s -x test.py -k test_hello
 ```
 
 Output:
+
 ```
 [(hello,test)->hello]: CONSOLE OUTPUT BEGIN =====================
-true
-false
+true false
+true false
 
 [(hello,test)->hello]: CONSOLE OUTPUT END   =====================
 ```
-This output shows that the `is_account` function returned `true` when checking the existence of the "hello" account and `false` for the "noexists" account.
 
-It is important to understand the use of these functions as they are frequently used in Rust smart contracts. They provide various checks and controls for contract interactions, ensuring the correctness of transactions and contract actions.
-
-This tutorial provides a good overview of how to use these basic functions, but always remember that the use of such functions should be adapted to the specific requirements of your smart contract.
-
-[Example Code](https://github.com/learnforpractice/rscdk-book/tree/master/examples/commonfunctions)
+[Complete Sample Code](https://github.com/learnforpractice/cppscdk-book/tree/master/examples/commonfunctions)

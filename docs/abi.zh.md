@@ -21,61 +21,45 @@ name bytes string bool uint64 checksum256
 public_key signature symbol asset extended_asset
 ```
                                                                                                     
-# ABI中的内置数据类型和Rust中的数据类型的对应关系表
+# ABI中的内置数据类型和 C++ 中的数据类型的对应关系表
 
-下面的这张表显示了ABI中的内置类型和Rust中的类型的对应关系.其中的所属模块，如果是非内置，则是在`rust-chain`这个rust package中相关的模块中定义的，另外，这些结构都已经导出到`lib.rs`，所以可以以下面的方式来引用相应的结构体：
+下面的这张表显示了ABI中的内置类型和 C++ 中的类型的对应关系.其中的所属模块，如果是非内置，则是在`cdt`这个package中相关的头文件中定义的。
 
-```rust
-use rust_chain::{
-    TimePoint,
-    TimePointSec,
-    Name,
-    Checksum160,
-    Checksum256,
-    Checksum512,
-    PublicKey,
-    Signature,
-    Symbol,
-    SymbolCode,
-    Asset,
-    ExtendedAsset,
-};
-```
 
 关系表：
 
-|         ABI 类型     |   Rust 类型       |      所属模块    |
+|         ABI 类型     |   C++ 类型       |      所属模块    |
 |:--------------------:|:------------------:|:------------------:|
 |         bool         |        bool        |   内置    |
-|         int8         |         i8         |   内置    |
-|         uint8        |         u8         |   内置    |
-|         int16        |         i16        |   内置    |
-|         int32        |         i32        |   内置    |
-|        uint32        |         u32        |   内置    |
-|         int64        |         i64        |   内置    |
-|        uint64        |         u64        |   内置    |
-|        int128        |        i128        |   内置    |
-|        uint128       |        u128        |   内置    |
-|       varint32       |                    |          |
-|       varuint32      |      VarUint32     |   varint |
-|        float32       |     float32        |  内置     |
-|        float64       |       float        |  内置     |
-|       float128       |      Float128      |  structs  |
-|      time_point      |      TimePoint     |  structs  |
-|    time_point_sec    |    TimePointSec    |  structs  |
-| block_timestamp_type | BlockTimestampType |  structs  |
-|         name         |        Name        |  name  |
-|         bytes        |        Vec<u8>     |  内置  |
-|        string        |        String      |  内置  |
-|      checksum160     |     Checksum160    |  structs  |
-|      checksum256     |   Checksum256/u256 |  structs  |
-|      checksum512     |     Checksum512    |  structs  |
-|      public_key      |      PublicKey     |  structs  |
-|       signature      |      Signature     |  structs  |
-|        symbol        |       Symbol       | asset   |
-|      symbol_code     |     SymbolCode     | asset   |
-|         asset        |        Asset       | asset   |
-|    extended_asset    |    ExtendedAsset   | asset   |
+|         int8         |         int8_t         |   内置    |
+|         uint8        |         uint8_t         |   内置    |
+|         int16        |         int16_t        |   内置    |
+|         int32        |         int32_t        |   内置    |
+|        uint32        |         uint32_t        |   内置    |
+|         int64        |         int64_t        |   内置    |
+|        uint64        |         uint64_t        |   内置    |
+|        int128        |        int128_t        |   内置    |
+|        uint128       |        uint128_t        |   内置    |
+|       varint32       |   signed_int            |   core/eosio/varint.hpp       |
+|       varuint32      |   unsigned_int     |   core/eosio/varint.hpp |
+|        float32       |     float        |  内置     |
+|        float64       |       double        |  内置     |
+|       float128       |      long double      |  内置  |
+|      time_point      |      time_point     |  core/eosio/time.hpp  |
+|    time_point_sec    |    time_point_sec    |  core/eosio/time.hpp  |
+| block_timestamp_type | block_timestamp_type |  core/eosio/time.hpp  |
+|         name         |        name        |  core/eosio/name.hpp  |
+|         bytes        |    vector<char>   |  <vector>  |
+|        string        |        string      |  <string>  |
+|      checksum160     |     checksum160    |  core/eosio/crypto.hpp  |
+|      checksum256     |   checksum256 |  core/eosio/crypto.hpp  |
+|      checksum512     |     checksum512    |  core/eosio/crypto.hpp  |
+|      public_key      |      public_key     |  core/eosio/crypto.hpp  |
+|       signature      |      signature     |  core/eosio/crypto.hpp  |
+|        symbol        |       symbol       | core/eosio/asset.hpp   |
+|      symbol_code     |     symbol_code     | core/eosio/asset.hpp   |
+|         asset        |        asset       | core/eosio/asset.hpp   |
+|    extended_asset    |    extended_asset   | core/eosio/asset.hpp   |
                                                                                                     
 # 特别的ABI类型
 

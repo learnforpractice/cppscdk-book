@@ -25,7 +25,7 @@ void assert_sha256( const char* data, uint32_t length, const eosio::checksum256&
 
 sha1算法hash函数
 
-```rust
+```cpp
 eosio::checksum160 sha1( const char* data, uint32_t length );
 ```
 
@@ -39,21 +39,21 @@ void assert_sha1( const char* data, uint32_t length, const eosio::checksum160& h
 
 sha512算法hash函数
 
-```rust
-pub fn sha512( data: &[u8]) -> Checksum512
+```cpp
+eosio::checksum512 sha512( const char* data, uint32_t length );
 ```
 
 用于检测hash512值是否正常，不正确会直接抛出异常
 
-```rust
-eosio::checksum512 sha512( const char* data, uint32_t length );
+```cpp
+void assert_sha512( const char* data, uint32_t length, eosio::checksum512& hash);
 ```
 
 ## ripemd160
 
 ripemd160算法hash函数
 
-```rust
+```cpp
 eosio::checksum160 ripemd160( const char* data, uint32_t length );
 ```
 
@@ -138,7 +138,7 @@ def test_recover_key(tester):
 
 ```bash
 cd examples/cryptotest
-rust-contract build
+cdt-cpp test.cpp
 ```
 
 测试：
