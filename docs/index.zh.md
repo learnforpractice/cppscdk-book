@@ -11,3 +11,4 @@
 * [密码学相关函数](crypto.zh.md)
 * [常用智能合约函数](common.zh.md)
 * [ABI](abi.zh.md)
+* [用cmake编译代码](hello-cmake.md)

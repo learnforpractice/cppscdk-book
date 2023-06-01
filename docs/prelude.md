@@ -12,9 +12,9 @@ This document uses example code to introduce relevant knowledge points related t
 
 A smart contract is code that can be executed on the blockchain.
 
-## What is a Rust Smart Contract
+## What is a C++ Smart Contract
 
-A Rust smart contract is code written in Rust that can be executed on the blockchain. In the case of the EOS network, Rust smart contract code is compiled into a WebAssembly binary file, which can be published to the blockchain and executed, achieving a certain operation effect.
+A C++ smart contract is code written in C++ that can be executed on the blockchain. In the case of the EOS network, C++ smart contract code is compiled into a WebAssembly binary file, which can be published to the blockchain and executed, achieving a certain operation effect.
 
 ## What is EOS
 

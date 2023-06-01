@@ -6,7 +6,7 @@ comments: true
 
 Declaration is as follows:
 
-```rust
+```cpp
 void require_recipient(name n)
 ```
 

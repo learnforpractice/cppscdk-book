@@ -11,3 +11,4 @@
 * [Crypto Functions](crypto.md)
 * [Commonly Functions](common.md)
 * [ABI](abi.md)
+* [Compiling Code with CMake](hello-cmake.md)

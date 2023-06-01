@@ -1,7 +1,5 @@
 #include <eosio/print.hpp>
 #include <eosio/name.hpp>
-#include <eosio/action.hpp>
-#include <eosio/multi_index.hpp>
 
 using namespace eosio;
 

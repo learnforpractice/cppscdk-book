@@ -6,7 +6,7 @@ comments: true
 
 声明如下：
 
-```rust
+```cpp
 void require_recipient(name n)
 ```
 
