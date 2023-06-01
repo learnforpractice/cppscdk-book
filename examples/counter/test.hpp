@@ -21,6 +21,9 @@ public:
     [[eosio::action("inc")]]
     void inc(name n);
 
+    [[eosio::action("teststore")]]
+    void test_store();
+
     [[eosio::action("testbound")]]
     void test_bound();
 

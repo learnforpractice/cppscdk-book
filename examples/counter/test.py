@@ -81,6 +81,9 @@ def test_inc(tester: ChainTester):
 def test_bound(tester: ChainTester):
     deploy_contract(tester, 'test')
 
+    r = tester.push_action('hello', 'teststore', {}, {'alice': 'active'})
+    tester.produce_block()
+
     r = tester.push_action('hello', 'testbound', {}, {'alice': 'active'})
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
@@ -90,7 +93,7 @@ def test_bound(tester: ChainTester):
 def test_remove(tester: ChainTester):
     deploy_contract(tester, 'test')
 
-    r = tester.push_action('hello', 'testbound', {}, {'alice': 'active'})
+    r = tester.push_action('hello', 'teststore', {}, {'alice': 'active'})
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
@@ -99,3 +102,19 @@ def test_remove(tester: ChainTester):
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
+
+@chain_test
+def test_offchain_find(tester):
+    deploy_contract(tester, 'test')
+
+    r = tester.push_action('hello', 'teststore', {}, {'alice': 'active'})
+    tester.produce_block()
+
+    r = tester.get_table_rows(False, 'hello', '', 'mytable', '', '', 10)
+    logger.info("+++++++rows: %s", r)
+
+    r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
+    logger.info("+++++++rows: %s", r)
+
+    r = tester.get_table_rows(True, 'hello', '', 'mytable', '1', '3', 10)
+    logger.info("+++++++rows: %s", r)

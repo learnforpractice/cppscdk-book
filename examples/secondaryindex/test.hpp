@@ -23,11 +23,11 @@ public:
                 indexed_by< "bysecondary"_n,
                 const_mem_fun<record, uint128_t, &record::get_secondary> > >;
 
-    [[eosio::action("test")]]
-    void test();
+    [[eosio::action("teststore")]]
+    void test_store();
 
-    [[eosio::action("testupdate")]]
-    void test_update();
+    [[eosio::action("testsec")]]
+    void test_secondary();
 
     [[eosio::action("testbound")]]
     void test_bound();

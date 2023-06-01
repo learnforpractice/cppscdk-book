@@ -67,50 +67,24 @@ def deploy_contract(tester, package_name):
     tester.deploy_contract('hello', code, abi)
 
 @chain_test
-def test_store(tester: ChainTester):
-    deploy_contract(tester, 'test')
-
-    r = tester.push_action('hello', 'test', b'', {'hello': 'active'})
-    tester.produce_block()
-    r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
-    logger.info("+++++++++%s", r)
-
-
-    r = tester.push_action('hello', 'test', b'', {'hello': 'active'})
-    tester.produce_block()
-    r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
-    logger.info("+++++++++%s", r)
-
-@chain_test
 def test_secondary(tester: ChainTester):
     deploy_contract(tester, 'test')
 
-    r = tester.push_action('hello', 'test', b'', {'hello': 'active'})
+    r = tester.push_action('hello', 'teststore', b'', {'hello': 'active'})
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
 
-
-    r = tester.push_action('hello', 'testupdate', b'', {'hello': 'active'})
+    r = tester.push_action('hello', 'testsec', b'', {'hello': 'active'})
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
 
 @chain_test
-def test_secondary_bound(tester: ChainTester):
+def test_remove(tester: ChainTester):
     deploy_contract(tester, 'test')
 
-    r = tester.push_action('hello', 'test', b'', {'hello': 'active'})
-    tester.produce_block()
-
-    r = tester.push_action('hello', 'testbound', b'', {'hello': 'active'})
-    tester.produce_block()
-
-@chain_test
-def test_secondary_remove(tester: ChainTester):
-    deploy_contract(tester, 'test')
-
-    r = tester.push_action('hello', 'test', b'', {'hello': 'active'})
+    r = tester.push_action('hello', 'teststore', b'', {'hello': 'active'})
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
@@ -120,3 +94,16 @@ def test_secondary_remove(tester: ChainTester):
     tester.produce_block()
     r = tester.get_table_rows(True, 'hello', '', 'mytable', '', '', 10)
     logger.info("+++++++++%s", r)
+
+@chain_test
+def test_offchain_find(tester: ChainTester):
+    deploy_contract(tester, 'test')
+
+    args = {}
+    r = tester.push_action('hello', 'teststore', args, {'hello': 'active'})
+    r = tester.get_table_rows(True, 'hello', '', 'mytable', '1', '', 10, key_type="i64", index_position="1")
+    logger.info("+++++++rows: %s", r)
+
+    # 0xde == 222
+    r = tester.get_table_rows(True, 'hello', '', 'mytable', '0xde', '', 10, key_type="i128", index_position="2")
+    logger.info("+++++++rows: %s", r)
