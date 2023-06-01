@@ -47,29 +47,19 @@ def chain_test(fn):
         return ret
     return call
 
-class NewChainTester():
-    def __init__(self):
-        self.tester = None
-
-    def __enter__(self):
-        self.tester = init_tester()
-        return self.tester
-
-    def __exit__(self, type, value, traceback):
-        self.tester.free()
-
 test_dir = os.path.dirname(__file__)
 def deploy_contract(tester, package_name):
-    with open(f'{test_dir}/target/{package_name}.wasm', 'rb') as f:
+    with open(f'{test_dir}/{package_name}.wasm', 'rb') as f:
         code = f.read()
-    with open(f'{test_dir}/target/{package_name}.abi', 'rb') as f:
+    with open(f'{test_dir}/{package_name}.abi', 'rb') as f:
         abi = f.read()
     tester.deploy_contract('hello', code, abi)
 
 @chain_test
-def test_commonfunctions(tester):
-    deploy_contract(tester, 'commonfunctions')
+def test_hello(tester: ChainTester):
+    deploy_contract(tester, 'test')
     args = {}
+    
     r = tester.push_action('hello', 'test', args, {'hello': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()

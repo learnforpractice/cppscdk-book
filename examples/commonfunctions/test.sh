@@ -1,1 +1,2 @@
-ipyeos -m pytest -s -x test.py -k test_commonfunctions
+ipyeos -m pytest -s -x test.py -k test_hello
+

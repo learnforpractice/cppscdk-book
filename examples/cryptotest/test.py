@@ -62,22 +62,22 @@ class NewChainTester():
 
 test_dir = os.path.dirname(__file__)
 def deploy_contract(tester, package_name):
-    with open(f'{test_dir}/target/{package_name}.wasm', 'rb') as f:
+    with open(f'{test_dir}/{package_name}.wasm', 'rb') as f:
         code = f.read()
-    with open(f'{test_dir}/target/{package_name}.abi', 'rb') as f:
+    with open(f'{test_dir}/{package_name}.abi', 'rb') as f:
         abi = f.read()
     tester.deploy_contract('hello', code, abi)
 
 @chain_test
 def test_hash(tester):
-    deploy_contract(tester, 'cryptotest')
+    deploy_contract(tester, 'test')
     r = tester.push_action('hello', 'testhash', {}, {'hello': 'active'})
     logger.info('++++++elapsed: %s', r['elapsed'])
     tester.produce_block()
 
 @chain_test
 def test_recover_key(tester):
-    deploy_contract(tester, 'cryptotest')
+    deploy_contract(tester, 'test')
     key = eos.create_key()
     pub = key['public']
     priv = key['private']
