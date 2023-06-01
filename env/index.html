@@ -254,50 +254,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing-rust" class="md-nav__link">
-    Installing Rust
+  <a href="#install-cdt" class="md-nav__link">
+    Install cdt
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-binaryen" class="md-nav__link">
-    Installing Binaryen
+  <a href="#install-the-eos-testing-framework" class="md-nav__link">
+    Install the EOS Testing Framework
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-virtual-python-environment-for-testing" class="md-nav__link">
-    Creating a Virtual Python Environment for Testing
+  <a href="#install-the-eos-python-tool-package" class="md-nav__link">
+    Install the EOS Python Tool Package
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-the-eos-testing-framework" class="md-nav__link">
-    Installing the EOS Testing Framework
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-rust-smart-contract-builder" class="md-nav__link">
-    Installing the Rust Smart Contract Builder
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-eos-python-toolkit" class="md-nav__link">
-    Installing the EOS Python Toolkit
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checking-the-environment" class="md-nav__link">
-    Checking the Environment
+  <a href="#check-the-environment" class="md-nav__link">
+    Check the Environment
   </a>
   
 </li>
@@ -472,50 +451,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing-rust" class="md-nav__link">
-    Installing Rust
+  <a href="#install-cdt" class="md-nav__link">
+    Install cdt
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-binaryen" class="md-nav__link">
-    Installing Binaryen
+  <a href="#install-the-eos-testing-framework" class="md-nav__link">
+    Install the EOS Testing Framework
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-virtual-python-environment-for-testing" class="md-nav__link">
-    Creating a Virtual Python Environment for Testing
+  <a href="#install-the-eos-python-tool-package" class="md-nav__link">
+    Install the EOS Python Tool Package
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-the-eos-testing-framework" class="md-nav__link">
-    Installing the EOS Testing Framework
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-rust-smart-contract-builder" class="md-nav__link">
-    Installing the Rust Smart Contract Builder
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-the-eos-python-toolkit" class="md-nav__link">
-    Installing the EOS Python Toolkit
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checking-the-environment" class="md-nav__link">
-    Checking the Environment
+  <a href="#check-the-environment" class="md-nav__link">
+    Check the Environment
   </a>
   
 </li>
@@ -539,96 +497,62 @@
 
 
 <h1 id="setting-up-the-development-environment">Setting Up the Development Environment</h1>
-<h2 id="installing-rust">Installing Rust</h2>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">&#39;=https&#39;</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>-y
+<h2 id="install-cdt">Install cdt</h2>
+<div class="highlight"><pre><span></span><code>python3 -m pip install -U eoscdt
 </code></pre></div>
-<p>Activate the new PATH environment variable:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span><span class="nv">$HOME</span>/.cargo/env
+<p>If your platform is Windows or MacOSX M1/M2, you also need to download an image containing the eoscdt tools:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/uuosio/scdt:latest
 </code></pre></div>
-<p>For the Windows platform, you can go to the following official download address and download according to the prompts:</p>
-<div class="highlight"><pre><span></span><code>https://www.rust-lang.org/tools/install
-</code></pre></div>
-<h2 id="installing-binaryen">Installing Binaryen</h2>
-<ul>
-<li>Install version &gt;= 99 of <code>binaryen</code>:</li>
-<li><a href="https://tracker.debian.org/pkg/binaryen">Debian/Ubuntu</a>: <code>apt-get install binaryen</code></li>
-<li><a href="https://formulae.brew.sh/formula/binaryen">Homebrew</a>: <code>brew install binaryen</code></li>
-<li><a href="https://archlinux.org/packages/community/x86_64/binaryen/">Arch Linux</a>: <code>pacman -S binaryen</code></li>
-<li>Windows: <a href="https://github.com/WebAssembly/binaryen/releases">Binary releases can be downloaded</a></li>
-</ul>
-<h2 id="creating-a-virtual-python-environment-for-testing">Creating a Virtual Python Environment for Testing</h2>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>~/env
-<span class="nb">source</span><span class="w"> </span>~/env/bin/activate
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-</code></pre></div>
-<p>The next time you want to use the test environment, simply run the following command again.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/env/bin/activate
-</code></pre></div>
-<h2 id="installing-the-eos-testing-framework">Installing the EOS Testing Framework</h2>
+<p>The recommended software for installing and running Docker on macOS is <a href="https://orbstack.dev/download">OrbStack</a>. For other platforms, you can use <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
+<h2 id="install-the-eos-testing-framework">Install the EOS Testing Framework</h2>
 <p>Install ipyeos:</p>
 <div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>ipyeos
 </code></pre></div>
-<p>If your platform is Windows or MacOSX M1/M2, you also need to download an image that includes the ipyeos tool:</p>
+<p>If your platform is Windows or MacOSX M1/M2, you also need to download an image containing the ipyeos tools:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/uuosio/ipyeos:latest
 </code></pre></div>
-<p>On macOS, the recommended software for installing and running Docker is <a href="https://orbstack.dev/download">OrbStack</a>. For other platforms, you can use <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
-<h2 id="installing-the-rust-smart-contract-builder">Installing the Rust Smart Contract Builder</h2>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>rust-contracts-builder
-</code></pre></div>
-<h2 id="installing-the-eos-python-toolkit">Installing the EOS Python Toolkit</h2>
+<p>The recommended software for installing and running Docker on macOS is <a href="https://orbstack.dev/download">OrbStack</a>. For other platforms, you can use <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
+<h2 id="install-the-eos-python-tool-package">Install the EOS Python Tool Package</h2>
 <div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pyeoskit
 </code></pre></div>
-<p>pyeoskit is used for deploying contracts to the mainnet or testnet.</p>
-<h2 id="checking-the-environment">Checking the Environment</h2>
-<p>Create a new Rust contract project:</p>
-<div class="highlight"><pre><span></span><code>rust-contract<span class="w"> </span>init<span class="w"> </span>hello
-</code></pre></div>
-<p>Build:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>hello
-rust-contract<span class="w"> </span>build
-</code></pre></div>
-<p>Test:</p>
-<div class="highlight"><pre><span></span><code>ipyeos<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>-x<span class="w"> </span>test.py<span class="w"> </span>-k<span class="w"> </span>test_hello
-</code></pre></div>
-<p>If your are using Windows or macOS M1/M2, or on other platforms using the ARM instruction set, the above command will run the test in docker.</p>
-<p>Alternatively, you can run <code>cargo test</code> to run the tests:</p>
-<div class="highlight"><pre><span></span><code>cargo<span class="w"> </span><span class="nb">test</span>
-</code></pre></div>
-<p>When running <code>cargo test</code>, the tests defined in <code>lib.rs</code> will be executed:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#[test]</span>
-<span class="k">fn</span> <span class="nf">test_inc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">tester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChainTester</span>::<span class="n">new</span><span class="p">();</span>
-<span class="w">    </span><span class="c1">//uncomment the following line to enable contract debugging.</span>
-<span class="w">    </span><span class="c1">// tester.enable_debug_contract(&quot;hello&quot;, true).unwrap();</span>
+<p>pyeoskit is used to deploy contracts to the main network or test network.</p>
+<h2 id="check-the-environment">Check the Environment</h2>
+<p>Download the test code: <a href="https://github.com/learnforpractice/cppscdk-book/tree/master/examples/helloworld">helloworld</a></p>
+<p>The code in <code>hello.cpp</code> is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;eosio/print.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;eosio/name.hpp&gt;</span>
 
-<span class="w">    </span><span class="n">deploy_contract</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">tester</span><span class="p">);</span>
-<span class="w">    </span><span class="n">update_auth</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">tester</span><span class="p">);</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">eosio</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">r#&quot;</span>
-<span class="s">    {</span>
-<span class="s">        &quot;hello&quot;: &quot;active&quot;</span>
-<span class="s">    }</span>
-<span class="s">    &quot;#</span><span class="p">;</span>
-<span class="w">    </span><span class="n">tester</span><span class="p">.</span><span class="n">push_action</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;inc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span><span class="w"> </span><span class="n">permissions</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span>
-<span class="w">    </span><span class="n">tester</span><span class="p">.</span><span class="n">produce_block</span><span class="p">();</span>
-
-<span class="w">    </span><span class="n">tester</span><span class="p">.</span><span class="n">push_action</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;inc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span><span class="w"> </span><span class="n">permissions</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span>
-<span class="w">    </span><span class="n">tester</span><span class="p">.</span><span class="n">produce_block</span><span class="p">();</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">receiver</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">action</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">action</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;sayhello&quot;</span><span class="n">_n</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;+++Hello, World&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Note that before running <code>cargo test</code>, you must first execute the <code>eosdebugger</code> application available in <code>ipyeos</code>. The Rust test code needs to connect to <code>eosdebugger</code> to run the tests.</p>
-<p>If your are using Windows or on platforms using the ARM instruction set, <code>eosdebugger</code> will run in docker.</p>
-<p>After starting <code>eosdebugger</code>, run <code>cargo test</code>, and you will see the following output in the <code>eosdebugger</code> console:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[(</span>hello,inc<span class="o">)</span>-&gt;hello<span class="o">]</span>:<span class="w"> </span>CONSOLE<span class="w"> </span>OUTPUT<span class="w"> </span><span class="nv">BEGIN</span><span class="w"> </span><span class="o">=====================</span>
-count<span class="w"> </span>is<span class="w"> </span><span class="m">1</span>
+<p>To compile:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>helloworld
+cdt-cpp<span class="w"> </span>hello.cpp
+</code></pre></div>
+<p>The test code in <code>test.py</code> is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@chain_test</span>
+<span class="k">def</span> <span class="nf">test_hello</span><span class="p">(</span><span class="n">tester</span><span class="p">:</span> <span class="n">ChainTester</span><span class="p">):</span>
+    <span class="n">deploy_contract</span><span class="p">(</span><span class="n">tester</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 
-<span class="o">[(</span>hello,inc<span class="o">)</span>-&gt;hello<span class="o">]</span>:<span class="w"> </span>CONSOLE<span class="w"> </span>OUTPUT<span class="w"> </span><span class="nv">END</span><span class="w">   </span><span class="o">=====================</span>
-debug<span class="w"> </span><span class="m">2023</span>-05-24T09:18:36.315<span class="w"> </span>ipyeos<span class="w">    </span>controller.cpp:2498<span class="w">           </span>clear_expired_input_<span class="w"> </span><span class="o">]</span><span class="w"> </span>removed<span class="w"> </span><span class="m">0</span><span class="w"> </span>expired<span class="w"> </span>transactions<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span><span class="m">50</span><span class="w"> </span>input<span class="w"> </span>dedup<span class="w"> </span>list,<span class="w"> </span>pending<span class="w"> </span>block<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">2018</span>-06-01T12:00:04.000
-debug<span class="w"> </span><span class="m">2023</span>-05-24T09:18:36.319<span class="w"> </span>ipyeos<span class="w">    </span>apply_context.cpp:40<span class="w">          </span>print_debug<span class="w">          </span><span class="o">]</span><span class="w"> </span>
-<span class="o">[(</span>hello,inc<span class="o">)</span>-&gt;hello<span class="o">]</span>:<span class="w"> </span>CONSOLE<span class="w"> </span>OUTPUT<span class="w"> </span><span class="nv">BEGIN</span><span class="w"> </span><span class="o">=====================</span>
-count<span class="w"> </span>is<span class="w"> </span><span class="m">2</span>
-
-<span class="o">[(</span>hello,inc<span class="o">)</span>-&gt;hello<span class="o">]</span>:<span class="w"> </span>CONSOLE<span class="w"> </span>OUTPUT<span class="w"> </span><span class="nv">END</span><span class="w">   </span><span class="o">=====================</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">push_action</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;sayhello&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;hello&#39;</span><span class="p">:</span> <span class="s1">&#39;active&#39;</span><span class="p">})</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;++++++elapsed: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;elapsed&#39;</span><span class="p">])</span>
+    <span class="n">tester</span><span class="o">.</span><span class="n">produce_block</span><span class="p">()</span>
+</code></pre></div>
+<p>To test:</p>
+<div class="highlight"><pre><span></span><code>ipyeos<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>-x<span class="w"> </span>test.py<span class="w"> </span>-k<span class="w"> </span>test_hello
+</code></pre></div>
+<p>On Windows platform or MacOSX M1/M2, running the above command will automatically start Docker to run the tests.</p>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT BEGIN =====================
++++Hello, World
+[(hello,sayhello)-&gt;hello]: CONSOLE OUTPUT END   =====================
 </code></pre></div>
 
 
