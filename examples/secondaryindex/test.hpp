@@ -10,9 +10,29 @@ class [[eosio::contract("test")]] test_contract : public eosio::contract {
 public:
     using contract::contract;
 
-    [[eosio::action("sayhello")]]
-    void say_hello();
+    struct [[eosio::table("mytable")]] record {
+        uint64_t    primary;
+        uint128_t   secondary;
+        uint64_t    data;
+        uint64_t primary_key() const { return primary; }
+        uint128_t get_secondary() const { return secondary; }
+    };
 
-    // static actions
-    using say_hello_action = eosio::action_wrapper<"sayhello"_n, &test_contract::say_hello>;
+    using record_table = multi_index<"mytable"_n,
+                record,
+                indexed_by< "bysecondary"_n,
+                const_mem_fun<record, uint128_t, &record::get_secondary> > >;
+
+    [[eosio::action("test")]]
+    void test();
+
+    [[eosio::action("testupdate")]]
+    void test_update();
+
+    [[eosio::action("testbound")]]
+    void test_bound();
+
+    [[eosio::action("testremove")]]
+    void test_remove();
+
 };

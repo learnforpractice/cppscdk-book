@@ -16,7 +16,7 @@ struct record {
    uint128_t get_secondary() const { return secondary; }
 };
 
-using record_table = multi_index<"mytable4"_n,
+using record_table = multi_index<"mytable"_n,
             record,
             indexed_by< "bysecondary"_n,
             const_mem_fun<record, uint128_t, &record::get_secondary> > >;
