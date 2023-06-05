@@ -1,5 +1,3 @@
-Output:
-
 ---
 comments: true
 ---

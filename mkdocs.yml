@@ -15,14 +15,15 @@ plugins:
 nav:
     - 'prelude.md'
     - 'env.md'
+    - 'common.md'
     - 'action.md'
     - 'notify.md'
     - 'database.md'
     - 'crypto.md'
-    - 'common.md'
     - 'abi.md'
     - 'deploy.md'
     - 'ui.md'
+    - 'hello-cmake.md'
 markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
