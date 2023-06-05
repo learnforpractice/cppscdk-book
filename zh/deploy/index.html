@@ -235,6 +235,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../common/" class="md-nav__link">
+        常用智能合约函数
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../action/" class="md-nav__link">
         内联Action在智能合约的使用
       </a>
@@ -295,21 +310,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../common/" class="md-nav__link">
-        常用智能合约函数
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../abi/" class="md-nav__link">
         ABI类型详解
       </a>
@@ -352,6 +352,21 @@
     <li class="md-nav__item">
       <a href="../ui/" class="md-nav__link">
         与数字钱包进行交互
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hello-cmake/" class="md-nav__link">
+        用CMake编译代码
       </a>
     </li>
   
@@ -419,6 +434,9 @@
 </code></pre></div>
 <p>如何你有active权限对应的私钥保存在Ledger硬件钱包里，可以用<code>indices</code>参数指定ledger中的私钥所在的索引：</p>
 <div class="highlight"><pre><span></span><code><span class="n">eosapi</span><span class="o">.</span><span class="n">deploy_contract</span><span class="p">(</span><span class="n">account_name</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">abi</span><span class="err">，</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,])</span>
+</code></pre></div>
+<p>另外，如果你的wasm代码过大而导致发布失败，可以尝试在调用deploy_contract的时候加上参数：<code>compress=True</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">eosapi</span><span class="o">.</span><span class="n">deploy_contract</span><span class="p">(</span><span class="n">account_name</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">abi</span><span class="err">，</span> <span class="n">compress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
 

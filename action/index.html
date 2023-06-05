@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../env/">
+        <link rel="prev" href="../common/">
       
       
         <link rel="next" href="../notify/">
@@ -19,7 +19,7 @@
     
     
       
-        <title>Action - C++ Smart Contracts Development Cook Book</title>
+        <title>Use of Inline Action in Smart Contracts - C++ Smart Contracts Development Cook Book</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#comments-true" class="md-skip">
+        <a href="#use-of-inline-action-in-smart-contracts" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Action
+              Use of Inline Action in Smart Contracts
             
           </span>
         </div>
@@ -233,6 +233,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../common/" class="md-nav__link">
+        Common Smart Contract Functions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -241,46 +256,12 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Action
-          <span class="md-nav__icon md-icon"></span>
-        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Action
+        Use of Inline Action in Smart Contracts
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#comments-true" class="md-nav__link">
-    comments: true
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use-of-inline-action-in-smart-contracts" class="md-nav__link">
-    Use of Inline Action in Smart Contracts
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -339,21 +320,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../common/" class="md-nav__link">
-        Common Smart Contract Functions
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../abi/" class="md-nav__link">
         Detailed Explanation of ABI Types
       </a>
@@ -391,6 +357,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hello-cmake/" class="md-nav__link">
+        Compiling Code with CMake
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -408,28 +389,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#comments-true" class="md-nav__link">
-    comments: true
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use-of-inline-action-in-smart-contracts" class="md-nav__link">
-    Use of Inline Action in Smart Contracts
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -447,8 +408,6 @@
   
 
 
-<hr />
-<h2 id="comments-true">comments: true</h2>
 <h1 id="use-of-inline-action-in-smart-contracts">Use of Inline Action in Smart Contracts</h1>
 <p>An action can also be initiated in a smart contract, such an action is called an inline action. Note that the action is asynchronous, meaning that only after all the code is executed will the contract code corresponding to the inline action be called. If the called contract does not define a related action or the account does not have a deployed contract, then the call will have no effect, but no exceptions will be thrown. Such empty inline actions are not useless, for example, they can serve as on-chain logs for application queries.</p>
 <p>The usage of inline action is illustrated below through an example of an EOS transfer using inline action.</p>
@@ -563,6 +522,54 @@ INFO     test:test.py:82 balance of alice after transfer: 50000010000
 
 
 
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+        data-repo="learnforpractice/cppscdk-book"
+        data-repo-id="R_kgDOJoxETQ"
+        data-category="Q&A"
+        data-category-id="DIC_kwDOJoxETc4CW4Pz"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+  </script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    // document.addEventListener("DOMContentLoaded", function() {
+    //   var ref = document.querySelector("[data-md-component=palette]")
+    //   ref.addEventListener("change", function() {
+    //     var palette = __md_get("__palette")
+    //     if (palette && typeof palette.color === "object") {
+    //       var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+    //       /* Instruct Giscus to change theme */
+    //       var frame = document.querySelector(".giscus-frame")
+    //       frame.contentWindow.postMessage(
+    //         { giscus: { setConfig: { theme } } },
+    //         "https://giscus.app"
+    //       )
+    //     }
+    //   })
+    // })
+  </script>
 
                 
               </article>

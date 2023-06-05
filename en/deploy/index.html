@@ -235,8 +235,23 @@
   
   
     <li class="md-nav__item">
+      <a href="../common/" class="md-nav__link">
+        Common Smart Contract Functions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../action/" class="md-nav__link">
-        Action
+        Use of Inline Action in Smart Contracts
       </a>
     </li>
   
@@ -295,21 +310,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../common/" class="md-nav__link">
-        Common Smart Contract Functions
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../abi/" class="md-nav__link">
         Detailed Explanation of ABI Types
       </a>
@@ -352,6 +352,21 @@
     <li class="md-nav__item">
       <a href="../ui/" class="md-nav__link">
         Interact with Digital Wallets
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hello-cmake/" class="md-nav__link">
+        Compiling Code with CMake
       </a>
     </li>
   
@@ -420,6 +435,9 @@
 </code></pre></div>
 <p>If you have the private key corresponding to the active permission saved in a Ledger Nano S wallet, you can use the <code>indices</code> parameter to specify the index of the private key in the wallet:</p>
 <div class="highlight"><pre><span></span><code><span class="n">eosapi</span><span class="o">.</span><span class="n">deploy_contract</span><span class="p">(</span><span class="n">account_name</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">abi</span><span class="err">，</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,])</span>
+</code></pre></div>
+<p>Additionally, if your WASM code is too large and causing deployment failures, you can try adding the parameter <code>compress=True</code> when calling <code>deploy_contract</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">eosapi</span><span class="o">.</span><span class="n">deploy_contract</span><span class="p">(</span><span class="n">account_name</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">abi</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
 
